@@ -331,22 +331,28 @@ var model = [new _blocks.TextBlock('Title', {
   styles: {
     padding: '1rem'
   }
-}), new _blocks.ColumnsBlock(['11111', '22222', '33333'], {
-  styles: {
-    padding: '2rem'
-  }
-}), new _blocks.ImageBlock(_image.default, {
-  styles: {
-    padding: '2rem 0',
-    display: 'flex',
-    'justify-content': 'center'
-  },
-  imageStyles: {
-    width: '500px',
-    height: 'auto'
-  },
-  alt: 'Это картинка'
-})];
+}) // new ColumnsBlock([
+//     '11111',
+//     '22222',
+//     '33333',
+// ], {
+//     styles: {
+//         padding: '2rem'
+//     }
+// }),
+// new ImageBlock(image, {
+//     styles: {
+//         padding: '2rem 0',
+//         display: 'flex',
+//         'justify-content': 'center'
+//     },
+//     imageStyles: {
+//         width: '500px',
+//         height: 'auto'
+//     },
+//     alt: 'Это картинка'
+// })
+];
 exports.model = model;
 },{"./assets/image.jpg":"assets/image.jpg","./classes/blocks":"classes/blocks.js"}],"classes/site.js":[function(require,module,exports) {
 "use strict";
