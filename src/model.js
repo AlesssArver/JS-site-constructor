@@ -2,21 +2,17 @@ import image from './assets/image.jpg'
 import { TitleBlock, TextBlock, ColumnsBlock, ImageBlock } from './classes/blocks'
 
 export const model = [
-    new TitleBlock('SIte constructor on pure JS', {
+    new TextBlock('Title', {
         tag: 'h1',
         styles: {
-            background: 'linear-gradient(to right, #ff0099, #493240)',
-            color: 'white',
-            padding: '1.5rem',
-            'text-align': 'center'
+            color: '#2d2d2d',
+            padding: '1.5rem'
         }
     }),
-    new TextBlock('here we go with some text', {
+    new TextBlock('There very long some text. Very interesting text.Very cool text.You reading this text and want to sleep, because It\'s very boring text.', {
         tag: 'p',
         styles: {
-            background: 'linear-gradient(to left, #f2994a, #f2c94c)',
             padding: '1rem',
-            'font-weight': 'bold'
         }
     }),
     new ColumnsBlock([
@@ -25,10 +21,7 @@ export const model = [
         '33333',
     ], {
         styles: {
-            background: 'linear-gradient(to bottom, #8e2de2, #4a00e0)',
-            padding: '2rem',
-            color: '#fff',
-            'font-weight': 'bold'
+            padding: '2rem'
         }
     }),
     new ImageBlock(image, {

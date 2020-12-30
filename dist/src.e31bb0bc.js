@@ -128,15 +128,25 @@ Object.defineProperty(exports, "__esModule", {
 exports.block = exports.css = exports.col = exports.row = void 0;
 
 var row = function row(content) {
-  var styles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  return "\n    <div class=\"row\" style=\"".concat(styles, "\">\n        ").concat(content, "\n    </div>\n");
+  var styles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+    background: '',
+    color: '',
+    'margin-top': '',
+    'margin-bottom': ''
+  };
+  return "\n    <div class=\"row\" style=\"".concat(css(styles), "\">\n        ").concat(content, "\n    </div>\n");
 };
 
 exports.row = row;
 
 var col = function col(content) {
-  var styles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  return "\n    <div class=\"col-sm\" style=\"".concat(styles, "\">\n        ").concat(content, "\n    </div>\n");
+  var styles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+    background: '',
+    color: '',
+    marginTop: '',
+    marginBottom: ''
+  };
+  return "\n        <div class=\"col-sm\" style=\"".concat(css(styles), "\">\n            ").concat(content, "\n        </div>\n    ");
 };
 
 exports.col = col;
@@ -158,7 +168,12 @@ var css = function css() {
 exports.css = css;
 
 var block = function block(type) {
-  return "\n        <form name=\"".concat(type, "\">\n            <h5>").concat(type, "</h5>\n            <div class=\"form-group\">\n                <input class=\"form-control form-control-sm\" name=\"value\" placeholder=\"value\">\n            </div>\n            <div class=\"form-group\">\n                <input class=\"form-control form-control-sm\" name=\"styles\" placeholder=\"styles\">\n            </div>\n            <button type=\"submit\" class=\"btn btn-primary btn-sm\">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C</button>\n        </form>\n        <hr />\n    ");
+  fetch('./form.html').then(function (r) {
+    return r.text();
+  }).then(function (data) {
+    return console.log(data);
+  });
+  return "\n        <button\n            class=\"btn btn-primary\"\n            type=\"button\"\n            data-bs-toggle=\"collapse\"\n            data-bs-target=\"#".concat(type, "\" \n            aria-expanded=\"false\" \n            aria-controls=\"").concat(type, "\">\n            Open: ").concat(type, "\n        </button>\n        <form class=\"collapse multi-collapse\" name=\"").concat(type, "\" id=\"").concat(type, "\">\n            <h5>").concat(type, "</h5>\n            <div class=\"mb-3\">\n                <input class=\"form-control form-control-md\" name=\"value\" placeholder=\"Text\">\n            </div>\n            <div class=\"mb-3\">\n                <select class=\"form-select\" name=\"tag\" aria-label=\"Default select example\">\n                    <option selected>Tag</option>\n                    <option value=\"h1\">h1</option>\n                    <option value=\"h2\">h2</option>\n                    <option value=\"h3\">h3</option>\n                    <option value=\"h4\">h4</option>\n                    <option value=\"h5\">h5</option>\n                    <option value=\"h6\">h6</option>\n                    <option value=\"p\">p</option>\n                    <option value=\"span\">span</option>\n                    <option value=\"div\">div</option>\n                </select>\n            </div>\n            <h4>Margin</h4>\n            <div class=\"form-group mb-3 row\">\n                <div class=\"col\">\n                    <input class=\"form-control form-control-md\" name=\"marginTop\" placeholder=\"top\">\n                </div>\n                <div class=\"col\">\n                    <input class=\"form-control form-control-md\" name=\"marginBottom\" placeholder=\"bottom\">\n                </div>\n            </div>\n            <div class=\"form-group mb-3 row\">\n                <div class=\"col\">\n                    <label for=\"background\" class=\"col-form-label\">Background</label>\n                    <input type=\"color\" class=\"form-control form-control-md\" name=\"background\" id=\"background\" placeholder=\"Background\">\n                </div>\n                <div class=\"col\">\n                    <label for=\"color\" class=\"col-form-label\">Text color</label>\n                    <input type=\"color\" class=\"form-control form-control-md\" name=\"color\" id=\"color\" placeholder=\"Color\">\n                </div>\n            </div>\n            <button type=\"submit\" class=\"add--btn btn btn-primary btn-sm\">Add</button>\n        </form>\n    ");
 };
 
 exports.block = block;
@@ -168,7 +183,7 @@ exports.block = block;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ImageBlock = exports.ColumnsBlock = exports.TextBlock = exports.TitleBlock = void 0;
+exports.ImageBlock = exports.ColumnsBlock = exports.TextBlock = void 0;
 
 var _utils = require("../utils");
 
@@ -212,52 +227,25 @@ var Block = /*#__PURE__*/function () {
   return Block;
 }();
 
-var TitleBlock = /*#__PURE__*/function (_Block) {
-  _inherits(TitleBlock, _Block);
+var TextBlock = /*#__PURE__*/function (_Block) {
+  _inherits(TextBlock, _Block);
 
-  var _super = _createSuper(TitleBlock);
-
-  function TitleBlock(value, options) {
-    _classCallCheck(this, TitleBlock);
-
-    return _super.call(this, value, options);
-  }
-
-  _createClass(TitleBlock, [{
-    key: "toHTML",
-    value: function toHTML() {
-      var _this$options = this.options,
-          _this$options$tag = _this$options.tag,
-          tag = _this$options$tag === void 0 ? 'h1' : _this$options$tag,
-          styles = _this$options.styles;
-      return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(this.value, "</").concat(tag, ">")), (0, _utils.css)(styles));
-    }
-  }]);
-
-  return TitleBlock;
-}(Block);
-
-exports.TitleBlock = TitleBlock;
-
-var TextBlock = /*#__PURE__*/function (_Block2) {
-  _inherits(TextBlock, _Block2);
-
-  var _super2 = _createSuper(TextBlock);
+  var _super = _createSuper(TextBlock);
 
   function TextBlock(value, options) {
     _classCallCheck(this, TextBlock);
 
-    return _super2.call(this, value, options);
+    return _super.call(this, value, options);
   }
 
   _createClass(TextBlock, [{
     key: "toHTML",
     value: function toHTML() {
-      var _this$options2 = this.options,
-          _this$options2$tag = _this$options2.tag,
-          tag = _this$options2$tag === void 0 ? 'p' : _this$options2$tag,
-          styles = _this$options2.styles;
-      return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(this.value, "</").concat(tag, ">")), (0, _utils.css)(styles));
+      var _this$options = this.options,
+          _this$options$tag = _this$options.tag,
+          tag = _this$options$tag === void 0 ? 'p' : _this$options$tag,
+          styles = _this$options.styles;
+      return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(this.value, "</").concat(tag, ">")), styles);
     }
   }]);
 
@@ -266,15 +254,15 @@ var TextBlock = /*#__PURE__*/function (_Block2) {
 
 exports.TextBlock = TextBlock;
 
-var ColumnsBlock = /*#__PURE__*/function (_Block3) {
-  _inherits(ColumnsBlock, _Block3);
+var ColumnsBlock = /*#__PURE__*/function (_Block2) {
+  _inherits(ColumnsBlock, _Block2);
 
-  var _super3 = _createSuper(ColumnsBlock);
+  var _super2 = _createSuper(ColumnsBlock);
 
   function ColumnsBlock(value, options) {
     _classCallCheck(this, ColumnsBlock);
 
-    return _super3.call(this, value, options);
+    return _super2.call(this, value, options);
   }
 
   _createClass(ColumnsBlock, [{
@@ -282,7 +270,7 @@ var ColumnsBlock = /*#__PURE__*/function (_Block3) {
     value: function toHTML() {
       var styles = this.options.styles;
       var html = this.value.map(_utils.col).join('');
-      return (0, _utils.row)(html, (0, _utils.css)(styles));
+      return (0, _utils.row)(html, styles);
     }
   }]);
 
@@ -291,26 +279,26 @@ var ColumnsBlock = /*#__PURE__*/function (_Block3) {
 
 exports.ColumnsBlock = ColumnsBlock;
 
-var ImageBlock = /*#__PURE__*/function (_Block4) {
-  _inherits(ImageBlock, _Block4);
+var ImageBlock = /*#__PURE__*/function (_Block3) {
+  _inherits(ImageBlock, _Block3);
 
-  var _super4 = _createSuper(ImageBlock);
+  var _super3 = _createSuper(ImageBlock);
 
   function ImageBlock(value, options) {
     _classCallCheck(this, ImageBlock);
 
-    return _super4.call(this, value, options);
+    return _super3.call(this, value, options);
   }
 
   _createClass(ImageBlock, [{
     key: "toHTML",
     value: function toHTML() {
-      var _this$options3 = this.options,
-          styles = _this$options3.styles,
-          is = _this$options3.imageStyles,
-          _this$options3$alt = _this$options3.alt,
-          alt = _this$options3$alt === void 0 ? "" : _this$options3$alt;
-      return (0, _utils.row)("\n        <img\n            src=\"".concat(this.value, "\" \n            alt=\"").concat(alt, "\" \n            style=\"").concat((0, _utils.css)(is), "\" \n        />"), (0, _utils.css)(styles));
+      var _this$options2 = this.options,
+          styles = _this$options2.styles,
+          is = _this$options2.imageStyles,
+          _this$options2$alt = _this$options2.alt,
+          alt = _this$options2$alt === void 0 ? "" : _this$options2$alt;
+      return (0, _utils.row)("\n        <img\n            src=\"".concat(this.value, "\" \n            alt=\"").concat(alt, "\" \n            style=\"").concat((0, _utils.css)(is), "\" \n        />"), styles);
     }
   }]);
 
@@ -332,27 +320,20 @@ var _blocks = require("./classes/blocks");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var model = [new _blocks.TitleBlock('SIte constructor on pure JS', {
+var model = [new _blocks.TextBlock('Title', {
   tag: 'h1',
   styles: {
-    background: 'linear-gradient(to right, #ff0099, #493240)',
-    color: 'white',
-    padding: '1.5rem',
-    'text-align': 'center'
+    color: '#2d2d2d',
+    padding: '1.5rem'
   }
-}), new _blocks.TextBlock('here we go with some text', {
+}), new _blocks.TextBlock('There very long some text. Very interesting text.Very cool text.You reading this text and want to sleep, because It\'s very boring text.', {
   tag: 'p',
   styles: {
-    background: 'linear-gradient(to left, #f2994a, #f2c94c)',
-    padding: '1rem',
-    'font-weight': 'bold'
+    padding: '1rem'
   }
 }), new _blocks.ColumnsBlock(['11111', '22222', '33333'], {
   styles: {
-    background: 'linear-gradient(to bottom, #8e2de2, #4a00e0)',
-    padding: '2rem',
-    color: '#fff',
-    'font-weight': 'bold'
+    padding: '2rem'
   }
 }), new _blocks.ImageBlock(_image.default, {
   styles: {
@@ -433,20 +414,31 @@ var Sidebar = /*#__PURE__*/function () {
     _defineProperty(this, "add", function (e) {
       e.preventDefault();
       var type = e.target.type;
+      var tag = e.target.tag.value;
       var value = e.target.value.value;
-      var styles = e.target.styles.value;
+      var background = e.target.background.value;
+      var color = e.target.color.value;
+      var marginTop = e.target.marginTop.value;
+      var marginBottom = e.target.marginBottom.value;
+      var styles = {
+        background: background,
+        color: color,
+        'margin-top': marginTop,
+        'margin-bottom': marginBottom
+      };
       var newBlock;
-      type === 'title' ? newBlock = new _blocks.TitleBlock(value, {
-        styles: styles
-      }) : newBlock = new _blocks.TitleBlock(value, {
-        styles: styles
-      });
-      console.log('Sidebar.newBlock', newBlock);
+
+      if (type === 'text') {
+        newBlock = new _blocks.TextBlock(value, {
+          tag: tag,
+          styles: styles
+        });
+      }
 
       _this.update(newBlock);
 
       e.target.value.value = '';
-      e.target.styles.value = '';
+      e.target.styles = {};
     });
 
     this.el = document.querySelector(selector);
@@ -463,7 +455,8 @@ var Sidebar = /*#__PURE__*/function () {
   }, {
     key: "template",
     get: function get() {
-      return (0, _utils.block)('text');
+      return [(0, _utils.block)('text') // block('columns'),
+      ].join('');
     }
   }]);
 
@@ -585,7 +578,7 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"styles/main.css":[function(require,module,exports) {
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"styles/index.sass":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -597,10 +590,10 @@ var _model = require("./model");
 
 var _app = require("./classes/app");
 
-require("./styles/main.css");
+require("./styles");
 
 new _app.App(_model.model).init();
-},{"./model":"model.js","./classes/app":"classes/app.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./model":"model.js","./classes/app":"classes/app.js","./styles":"styles/index.sass"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -628,7 +621,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62838" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63223" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -15,28 +15,40 @@ export class Sidebar {
     }
 
     get template() {
-        return block('text')
+        return [
+            block('text'),
+            // block('columns'),
+        ].join('')
     }
 
     add = (e) => {
         e.preventDefault()
 
         const type = e.target.type
+        const tag = e.target.tag.value
         const value = e.target.value.value
-        const styles = e.target.styles.value
+        const background = e.target.background.value
+        const color = e.target.color.value
+        const marginTop = e.target.marginTop.value
+        const marginBottom = e.target.marginBottom.value
 
+        const styles = {
+            background,
+            color,
+            'margin-top': marginTop,
+            'margin-bottom': marginBottom,
+        }
 
         let newBlock
 
-        type === 'title'
-            ? newBlock = new TitleBlock(value, { styles })
-            : newBlock = new TitleBlock(value, { styles })
+        if (type === 'text') {
+            newBlock = new TextBlock(value, { tag, styles })
+        }
 
-        console.log('Sidebar.newBlock', newBlock)
         this.update(newBlock)
 
         e.target.value.value = ''
-        e.target.styles.value = ''
+        e.target.styles = {}
     }
 }
 

@@ -11,17 +11,6 @@ class Block {
     }
 }
 
-export class TitleBlock extends Block {
-    constructor(value, options) {
-        super(value, options)
-    }
-
-    toHTML() {
-        const { tag = 'h1', styles } = this.options
-        return row(col(`<${tag}>${this.value}</${tag}>`), css(styles))
-    }
-}
-
 export class TextBlock extends Block {
     constructor(value, options) {
         super(value, options)
@@ -29,7 +18,7 @@ export class TextBlock extends Block {
 
     toHTML() {
         const { tag = 'p', styles } = this.options
-        return row(col(`<${tag}>${this.value}</${tag}>`), css(styles))
+        return row(col(`<${tag}>${this.value}</${tag}>`), styles)
     }
 }
 
@@ -41,7 +30,7 @@ export class ColumnsBlock extends Block {
     toHTML() {
         const { styles } = this.options
         let html = this.value.map(col).join('')
-        return row(html, css(styles))
+        return row(html, styles)
     }
 }
 
@@ -57,6 +46,6 @@ export class ImageBlock extends Block {
             src="${this.value}" 
             alt="${alt}" 
             style="${css(is)}" 
-        />`, css(styles))
+        />`, styles)
     }
 }
