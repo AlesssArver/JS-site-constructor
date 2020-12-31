@@ -428,8 +428,8 @@ var Sidebar = /*#__PURE__*/function () {
       var styles = {
         background: background,
         color: color,
-        'margin-top': marginTop,
-        'margin-bottom': marginBottom
+        'margin-top': marginTop ? "".concat(marginTop, "px") : '',
+        'margin-bottom': marginBottom ? "".concat(marginBottom, "px") : ''
       };
       var newBlock;
       console.log('type', e.target.name);

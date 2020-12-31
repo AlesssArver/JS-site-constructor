@@ -31,8 +31,8 @@ export class Sidebar {
         const styles = {
             background,
             color,
-            'margin-top': marginTop,
-            'margin-bottom': marginBottom,
+            'margin-top': marginTop ? `${marginTop}px` : '',
+            'margin-bottom': marginBottom ? `${marginBottom}px` : '',
         }
 
         let newBlock
