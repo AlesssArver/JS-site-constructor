@@ -168,11 +168,6 @@ var css = function css() {
 exports.css = css;
 
 var block = function block(type) {
-  fetch('./form.html').then(function (r) {
-    return r.text();
-  }).then(function (data) {
-    return console.log(data);
-  });
   return "\n        <button\n            class=\"btn btn-primary\"\n            type=\"button\"\n            data-bs-toggle=\"collapse\"\n            data-bs-target=\"#".concat(type, "\" \n            aria-expanded=\"false\" \n            aria-controls=\"").concat(type, "\">\n            Open: ").concat(type, "\n        </button>\n        <form class=\"collapse multi-collapse\" name=\"").concat(type, "\" id=\"").concat(type, "\">\n            <h5>").concat(type, "</h5>\n            <div class=\"mb-3\">\n                <input class=\"form-control form-control-md\" name=\"value\" placeholder=\"Text\">\n            </div>\n            <div class=\"mb-3\">\n                <select class=\"form-select\" name=\"tag\" aria-label=\"Default select example\">\n                    <option selected>Tag</option>\n                    <option value=\"h1\">h1</option>\n                    <option value=\"h2\">h2</option>\n                    <option value=\"h3\">h3</option>\n                    <option value=\"h4\">h4</option>\n                    <option value=\"h5\">h5</option>\n                    <option value=\"h6\">h6</option>\n                    <option value=\"p\">p</option>\n                    <option value=\"span\">span</option>\n                    <option value=\"div\">div</option>\n                </select>\n            </div>\n            <h4>Margin</h4>\n            <div class=\"form-group mb-3 row\">\n                <div class=\"col\">\n                    <input class=\"form-control form-control-md\" name=\"marginTop\" placeholder=\"top\">\n                </div>\n                <div class=\"col\">\n                    <input class=\"form-control form-control-md\" name=\"marginBottom\" placeholder=\"bottom\">\n                </div>\n            </div>\n            <div class=\"form-group mb-3 row\">\n                <div class=\"col\">\n                    <label for=\"background\" class=\"col-form-label\">Background</label>\n                    <input type=\"color\" class=\"form-control form-control-md\" name=\"background\" id=\"background\" placeholder=\"Background\">\n                </div>\n                <div class=\"col\">\n                    <label for=\"color\" class=\"col-form-label\">Text color</label>\n                    <input type=\"color\" class=\"form-control form-control-md\" name=\"color\" id=\"color\" placeholder=\"Color\">\n                </div>\n            </div>\n            <button type=\"submit\" class=\"add--btn btn btn-primary btn-sm\">Add</button>\n        </form>\n    ");
 };
 
@@ -241,6 +236,7 @@ var TextBlock = /*#__PURE__*/function (_Block) {
   _createClass(TextBlock, [{
     key: "toHTML",
     value: function toHTML() {
+      console.log('value', this.value);
       var _this$options = this.options,
           _this$options$tag = _this$options.tag,
           tag = _this$options$tag === void 0 ? 'p' : _this$options$tag,
@@ -380,8 +376,11 @@ var Site = /*#__PURE__*/function () {
     value: function render(model) {
       var _this = this;
 
+      console.log('model', model);
       this.el.innerHTML = '';
       model.forEach(function (block) {
+        console.log(block);
+
         _this.el.insertAdjacentHTML('beforeend', block.toHTML());
       });
     }
@@ -419,7 +418,7 @@ var Sidebar = /*#__PURE__*/function () {
 
     _defineProperty(this, "add", function (e) {
       e.preventDefault();
-      var type = e.target.type;
+      var type = e.target.name;
       var tag = e.target.tag.value;
       var value = e.target.value.value;
       var background = e.target.background.value;
@@ -433,6 +432,7 @@ var Sidebar = /*#__PURE__*/function () {
         'margin-bottom': marginBottom
       };
       var newBlock;
+      console.log('type', e.target.name);
 
       if (type === 'text') {
         newBlock = new _blocks.TextBlock(value, {
@@ -440,6 +440,8 @@ var Sidebar = /*#__PURE__*/function () {
           styles: styles
         });
       }
+
+      console.log('newBlock', newBlock);
 
       _this.update(newBlock);
 
@@ -461,8 +463,7 @@ var Sidebar = /*#__PURE__*/function () {
   }, {
     key: "template",
     get: function get() {
-      return [(0, _utils.block)('text') // block('columns'),
-      ].join('');
+      return (0, _utils.block)('text');
     }
   }]);
 
@@ -627,7 +628,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63223" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60227" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

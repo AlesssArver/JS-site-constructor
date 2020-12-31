@@ -33,10 +33,6 @@ export const css = (styles = {}) => {
 }
 
 export const block = (type) => {
-    fetch('./form.html')
-        .then(r => r.text())
-        .then(data => console.log(data))
-
     return `
         <button
             class="btn btn-primary"

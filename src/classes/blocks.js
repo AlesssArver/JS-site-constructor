@@ -17,6 +17,8 @@ export class TextBlock extends Block {
     }
 
     toHTML() {
+        console.log('value', this.value)
+
         const { tag = 'p', styles } = this.options
         return row(col(`<${tag}>${this.value}</${tag}>`), styles)
     }

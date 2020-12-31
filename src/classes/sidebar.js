@@ -15,16 +15,12 @@ export class Sidebar {
     }
 
     get template() {
-        return [
-            block('text'),
-            // block('columns'),
-        ].join('')
+        return block('text')
     }
 
     add = (e) => {
         e.preventDefault()
-
-        const type = e.target.type
+        const type = e.target.name
         const tag = e.target.tag.value
         const value = e.target.value.value
         const background = e.target.background.value
@@ -41,9 +37,13 @@ export class Sidebar {
 
         let newBlock
 
+        console.log('type', e.target.name)
+
         if (type === 'text') {
             newBlock = new TextBlock(value, { tag, styles })
         }
+
+        console.log('newBlock', newBlock)
 
         this.update(newBlock)
 
